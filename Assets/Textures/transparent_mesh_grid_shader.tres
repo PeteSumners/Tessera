@@ -1,0 +1,15 @@
+[gd_resource type="Shader" format=3 uid="uid://66o8o15ba8c8"]
+
+[resource]
+code = "shader_type spatial;
+
+uniform sampler2D base_sheet: source_color, filter_nearest; // source color means get color from texture, filter_nearest means use the nearest pixel (no filter)
+uniform sampler2D multiplier_sheet: source_color, filter_nearest; // source color means get color from texture, filter_nearest means use the nearest pixel (no filter)
+
+void fragment() {
+	vec4 base_tex = texture(base_sheet, UV);
+	vec4 multiplier_tex = texture(multiplier_sheet, UV2);
+	vec4 final_tex = base_tex * multiplier_tex;
+	ALBEDO = final_tex.rgb;
+	ALPHA = final_tex.a;
+}"

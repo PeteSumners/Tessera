@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://632b1wvx4dsx"]
+
+[ext_resource type="Script" uid="uid://dntk52nxchft4" path="res://Scripts/Voxels/VoxelWorld.gd" id="1_16rdf"]
+[ext_resource type="AudioStream" uid="uid://cakvtwasllcfx" path="res://Music/Multitap Echo Menu.wav" id="3"]
+[ext_resource type="Script" uid="uid://boweaqphgu8ff" path="res://Scripts/Meshes/MeshGrid/CubeGrid/GreedyCubeGrid.gd" id="4_b3kp4"]
+[ext_resource type="Script" uid="uid://b5a2t0rwj5sq5" path="res://Scripts/SkyboxMaker.gd" id="4_mqi6r"]
+
+[node name="Voxel World" type="Node3D"]
+script = ExtResource("1_16rdf")
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3")
+
+[node name="big chunk" type="CharacterBody3D" parent="."]
+script = ExtResource("4_b3kp4")
+
+[node name="skybox maker" type="Node3D" parent="."]
+script = ExtResource("4_mqi6r")

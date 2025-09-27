@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgnx4ohwfic74"]
+
+[ext_resource type="Script" uid="uid://bk3hubvaov3dn" path="res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/TextBox.gd" id="1_eirc8"]
+
+[sub_resource type="CylinderMesh" id="1"]
+
+[node name="Mesh Text Box" type="Node3D"]
+script = ExtResource("1_eirc8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("1")

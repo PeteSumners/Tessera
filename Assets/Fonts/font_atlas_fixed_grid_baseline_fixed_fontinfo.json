@@ -1,0 +1,11 @@
+{
+  "glyph_box_width": 14,
+  "glyph_box_height": 32,
+  "columns": 16,
+  "baseline_offset": 0,
+  "font_size": 23,
+  "target_glyph_size": 32,
+  "scale_factor": 1.4545454545454546,
+  "threshold": 1,
+  "format": "RGBA_solid_white_no_antialiasing"
+}

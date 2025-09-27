@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbvq56rkcv0j0"]
+
+[ext_resource type="Script" uid="uid://cxpei7auph7h" path="res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/WordBox/TypeBox/TypeBox.gd" id="1"]
+[ext_resource type="Script" uid="uid://bk3hubvaov3dn" path="res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/TextBox.gd" id="2"]
+
+[node name="Chat Box" type="Node3D"]
+script = ExtResource("1")
+
+[node name="Remote Text Box" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("2")

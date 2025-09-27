@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://chp3jthtw8xyw"]
+
+[ext_resource type="Script" uid="uid://cwdjhvk7o37gu" path="res://Scripts/Toys/BookParser.gd" id="1_wg5h4"]
+
+[node name="BookParser" type="Node2D"]
+script = ExtResource("1_wg5h4")

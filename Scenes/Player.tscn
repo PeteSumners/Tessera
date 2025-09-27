@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://cf5bxshfwjsad"]
+
+[sub_resource type="Resource" id="Resource_qbkls"]
+metadata/__load_path__ = "res://Scripts/Player.gd"
+
+[sub_resource type="BoxMesh" id="4"]
+
+[sub_resource type="Resource" id="Resource_rpqav"]
+metadata/__load_path__ = "res://Scripts/PlayerCamera.gd"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bja51"]
+albedo_color = Color(0.239216, 0.239216, 0.239216, 1)
+
+[sub_resource type="BoxMesh" id="5"]
+material = SubResource("StandardMaterial3D_bja51")
+
+[sub_resource type="BoxMesh" id="BoxMesh_wdnka"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4frrj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bwrqt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iyb6o"]
+radius = 0.49
+
+[node name="Player" type="CharacterBody3D"]
+script = SubResource("Resource_qbkls")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
+
+[node name="Head" type="MeshInstance3D" parent="Neck"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.5, 0)
+mesh = SubResource("4")
+
+[node name="Camera3D" type="Camera3D" parent="Neck/Head"]
+transform = Transform3D(-2, 0, 1.74846e-07, 0, 2, 0, -1.74846e-07, 0, -2, 0, 0, 0)
+script = SubResource("Resource_rpqav")
+
+[node name="Gun Placeholder" type="Node3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.75)
+visible = false
+
+[node name="Body" type="Node3D" parent="Neck/Gun Placeholder"]
+transform = Transform3D(0.1, 0, 0, 0, 0.25, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Gun Body Mesh" type="MeshInstance3D" parent="Neck/Gun Placeholder/Body"]
+mesh = SubResource("5")
+
+[node name="Front Sight" type="MeshInstance3D" parent="Neck/Gun Placeholder"]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.125, 0.45)
+mesh = SubResource("BoxMesh_wdnka")
+skeleton = NodePath("../Body")
+
+[node name="Rear Sight" type="Node3D" parent="Neck/Gun Placeholder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+
+[node name="Left Rear Sight" type="MeshInstance3D" parent="Neck/Gun Placeholder/Rear Sight"]
+transform = Transform3D(0.025, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.025, 0, -0.4)
+mesh = SubResource("BoxMesh_4frrj")
+
+[node name="Bullet Spawn" type="Node3D" parent="Neck/Gun Placeholder"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0.0625, 0.5)
+
+[node name="Body" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_bwrqt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_iyb6o")

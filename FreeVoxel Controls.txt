@@ -1,0 +1,9 @@
+WASD: move around
+Mouse: look around
+Space: jump
+
+Use the connection box to type in a server ip to connect to. (To use it, click it when it's in the middle of the screen. Then type the desired ip, and hit Enter.) The default ip will connect you to the server I have running on an AWS instance. 
+
+Click on your chatbox (it will be highlighted green), again, when it's in the middle of the screen, to type in it. Press Enter to send text across the network! Other players can see sent text. Backspace works, too. 
+
+I've got movement networked now, so you can see other players move around and stuff. 

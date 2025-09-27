@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpfg3sv5fco7a"]
+
+[ext_resource type="Script" uid="uid://6s03onso330b" path="res://Scripts/Toys/NLPAgent.gd" id="1_q7uj2"]
+
+[node name="NLP Agent" type="Node3D"]
+script = ExtResource("1_q7uj2")

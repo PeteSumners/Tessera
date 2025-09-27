@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://l2i3nrdi6e5y"]
+
+[ext_resource type="Script" uid="uid://b3yfjm3g4rt75" path="res://Scripts/Meshes/MeshGrid/CubeGrid/Workshop.gd" id="1_uoqs5"]
+
+[node name="Workshop" type="CharacterBody3D"]
+script = ExtResource("1_uoqs5")

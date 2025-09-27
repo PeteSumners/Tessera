@@ -1,0 +1,126 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1754145715
+ast_output.json::JSON::-1::1752827710::0::1::::<><>::
+default_env.tres::Environment::7670571735730858529::1754008674::0::1::::<><>::
+export_presets.cfg::TextFile::-1::1750447824::0::1::::<><>::
+FreeVoxel Controls.txt::TextFile::-1::1708228752::0::1::::<><>::
+icon.png::CompressedTexture2D::8112585290053962838::1690675240::1754008671::1::::<><>::
+::res://Assets/::1751647956
+::res://Assets/Fonts/::1754008671
+font_atlas_fixed_grid_baseline_fixed.png::Image::3667601724839077173::1751714634::1754008671::1::::<><>::
+font_atlas_fixed_grid_baseline_fixed_fontinfo.json::JSON::-1::1751756786::0::1::::<><>::
+font_atlas_fixed_grid_baseline_fixed_metadata.json::JSON::-1::1751756786::0::1::::<><>::
+NotoSansMono-Regular.ttf::FontFile::4904580982521627617::1751649494::1754008671::1::::<><>::
+notosansmono_font_metrics.txt::TextFile::-1::1751714940::0::1::::<><>::
+rendered_text.png::CompressedTexture2D::2087556982817293690::1752269084::1754008671::1::::<><>::
+::res://Assets/Textures/::1754008671
+ASCII Table.png::CompressedTexture2D::6034615055133617033::1698272374::1754008671::1::::<><>::
+ascii_atlas.png::CompressedTexture2D::1364520740662440762::1698272374::1754008671::1::::<><>::
+color_atlas.png::CompressedTexture2D::5379358056757699443::1691229516::1754008671::1::::<><>::
+Debug Material.tres::StandardMaterial3D::9140636272135275828::1751647956::0::1::::<><>::uid://je6mytup8rhv::::res://Assets/Textures/debug-texture.svg
+debug-texture.svg::CompressedTexture2D::641862050902907519::1735051512::1754008671::1::::<><>::
+Lightmap.png::CompressedTexture2D::6097949703393568649::1690676138::1754008671::1::::<><>::
+mesh_grid_shader.tres::Shader::8523201248391088660::1752194798::0::1::::<><>::
+Normal Material.tres::ShaderMaterial::139566022000960919::1751647956::0::1::::<><>::uid://dtox45qh47ypg::::res://Assets/Textures/mesh_grid_shader.tres<>uid://bqhudb25s0rgo::::res://Assets/Textures/Voxel Texture Sheet.png<>uid://cs45lt3uydx18::::res://Assets/Textures/Lightmap.png
+nyancat.png::CompressedTexture2D::5212355037714287999::1750453950::1754008671::1::::<><>::
+nyan_sprite_sheet.png::CompressedTexture2D::1368816833016662489::1750453388::1754008671::1::::<><>::
+Text Color Map.png::CompressedTexture2D::4734710444283732932::1691229516::1754008671::1::::<><>::
+Text Material.tres::ShaderMaterial::5609733355825308253::1751647956::0::1::::<><>::uid://66o8o15ba8c8::::res://Assets/Textures/transparent_mesh_grid_shader.tres<>uid://b8pr8vuf1kqk7::::res://Assets/Textures/Text Color Map.png<>uid://cr8hh05x252a4::::res://Assets/Textures/ASCII Table.png
+Transparent Material.tres::ShaderMaterial::3183200326352517636::1751647956::0::1::::<><>::uid://bqhudb25s0rgo::::res://Assets/Textures/Voxel Texture Sheet.png<>uid://cs45lt3uydx18::::res://Assets/Textures/Lightmap.png<>uid://66o8o15ba8c8::::res://Assets/Textures/transparent_mesh_grid_shader.tres
+transparent_mesh_grid_shader.tres::Shader::2240759609108703161::1752194798::0::1::::<><>::
+Voxel Texture Sheet.png::CompressedTexture2D::3525112619038270214::1704203568::1754008671::1::::<><>::
+::res://Assets/Textures/Blocks/::1754008671
+atlas.png::CompressedTexture2D::866108281793832490::1704203568::1754008671::1::::<><>::
+dirt.png::CompressedTexture2D::5630776500516058765::1752268238::1754008671::1::::<><>::
+glass.png::CompressedTexture2D::5077397498825137607::1735472314::1754008671::1::::<><>::
+grass.png::CompressedTexture2D::8872551834442437121::1752194710::1754008671::1::::<><>::
+gravel.png::CompressedTexture2D::8086372763024587770::1752194366::1754008671::1::::<><>::
+sand.png::CompressedTexture2D::18893254553631682::1752268390::1754008671::1::::<><>::
+stone.png::CompressedTexture2D::6926537196022800933::1735360378::1754008671::1::::<><>::
+::res://Bible/::1754003586
+asv.txt::TextFile::-1::1713141692::0::1::::<><>::
+kjv.txt::TextFile::-1::1711785080::0::1::::<><>::
+kjv_ascii.txt::TextFile::-1::1734729694::0::1::::<><>::
+::res://Builds/::1754008671
+FreeVoxel.apple-touch-icon.png::CompressedTexture2D::6013047214560594614::1750447824::1754008671::1::::<><>::
+FreeVoxel.icon.png::CompressedTexture2D::3510421607642269579::1750447824::1754008671::1::::<><>::
+FreeVoxel.png::CompressedTexture2D::1119404733780178553::1750447824::1754008671::1::::<><>::
+::res://Music/::1754008671
+Multitap Echo Menu.wav::AudioStreamWAV::4794795288205763985::1690998766::1754008671::1::::<><>::
+::res://Scenes/::1754008674
+BookParser.tscn::PackedScene::5296846096757211050::1753415042::0::1::::<><>::uid://cwdjhvk7o37gu::::res://Scripts/Toys/BookParser.gd
+CameraTest.tscn::PackedScene::1473333698774723777::1754008674::0::1::::<><>::res://Scripts/SkyboxMaker.gd<>res://Scripts/Meshes/MeshGrid/CubeGrid/PerlinTerrainGrid.gd<>uid://wbl1ddys1gan::::res://Scenes/Spectator.tscn<>res://Scripts/Meshes/MeshGrid/PixelDisplay/TerminalDisplay.gd
+ChatBox.tscn::PackedScene::4887408844504311159::1753415042::0::1::::<><>::uid://cxpei7auph7h::::res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/WordBox/TypeBox/TypeBox.gd<>uid://bk3hubvaov3dn::::res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/TextBox.gd
+nlp_agent.tscn::PackedScene::3449990510450857176::1753415042::0::1::::<><>::uid://6s03onso330b::::res://Scripts/Toys/NLPAgent.gd
+Player.tscn::PackedScene::5185819664941620947::1753415042::0::1::::<><>::
+Spectator.tscn::PackedScene::1546933418672727381::1753415042::0::1::::<><>::uid://4icptdw2tsjf::::res://Scripts/Movement/Spectator.gd
+Tile Text Box.tscn::PackedScene::5222260366021155957::1753415042::0::1::::<><>::uid://bk3hubvaov3dn::::res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/TextBox.gd
+Voxel World.tscn::PackedScene::2235299275070101503::1753415044::0::1::::<><>::uid://dntk52nxchft4::::res://Scripts/Voxels/VoxelWorld.gd<>uid://cakvtwasllcfx::::res://Music/Multitap Echo Menu.wav<>uid://boweaqphgu8ff::::res://Scripts/Meshes/MeshGrid/CubeGrid/GreedyCubeGrid.gd<>uid://b5a2t0rwj5sq5::::res://Scripts/SkyboxMaker.gd
+Workshop.tscn::PackedScene::828351926762886972::1753415044::0::1::::<><>::uid://b3yfjm3g4rt75::::res://Scripts/Meshes/MeshGrid/CubeGrid/Workshop.gd
+::res://Scripts/::1754003592
+AICharacter.gd::GDScript::-1::1708429328::0::1::::<>NetworkedObject<>::
+MathHelper.gd::GDScript::-1::1706670416::0::1::::<>Node<>::
+SkyboxMaker.gd::GDScript::-1::1751762156::0::1::::<>Node3D<>::
+ThreadPool.gd::GDScript::-1::1748338312::0::1::::<>Node<>::
+::res://Scripts/Meshes/::1754003592
+MeshHelper.gd::GDScript::-1::1735153532::0::1::::MeshHelper<>RefCounted<>::
+SurfaceToolManager.gd::GDScript::-1::1751648014::0::1::::<>Node<>::
+::res://Scripts/Meshes/MeshGrid/::1754003592
+MeshGrid.gd::GDScript::-1::1748799134::0::1::::MeshGrid<>PhysicsObject<>::
+::res://Scripts/Meshes/MeshGrid/CubeGrid/::1754003592
+CubeGrid.gd::GDScript::-1::1751714940::0::1::::CubeGrid<>MeshGrid<>::
+GreedyCubeGrid.gd::GDScript::-1::1753650854::0::1::::GreedyCubeGrid<>CubeGrid<>::
+PerlinTerrainGrid.gd::GDScript::-1::1753650624::0::1::::PerlinTerrainGrid<>GreedyCubeGrid<>::
+TerrainChunk.gd::GDScript::-1::1735035956::0::1::::TerrainChunk<>CubeGrid<>::
+Workshop.gd::GDScript::-1::1735184674::0::1::::Workshop<>CubeGrid<>::
+::res://Scripts/Meshes/MeshGrid/PixelDisplay/::1754003592
+AtlasHelper.gd::GDScript::-1::1752588206::0::1::::<>Node<>::
+CharacterDisplay.gd::GDScript::-1::1752683610::0::1::::CharacterDisplay<>PixelDisplay<>::
+FontTester.gd::GDScript::-1::1751757686::0::1::::FontTester<>PixelDisplay<>::
+ImageTester.gd::GDScript::-1::1751764538::0::1::::<>Node3D<>::
+PixelDisplay.gd::GDScript::-1::1752591246::0::1::::PixelDisplay<>PhysicsObject<>::
+PixelDisplayTester.gd::GDScript::-1::1751726342::0::1::::<>PhysicsObject<>::
+StringTester.gd::GDScript::-1::1752585494::0::1::::<>Node<>::
+TerminalDisplay.gd::GDScript::-1::1752968092::0::1::::TerminalDisplay<>CharacterDisplay<>::
+TerminalTester.gd::GDScript::-1::1752345484::0::1::::<>Node<>::
+::res://Scripts/Meshes/MeshGrid/TileGrid/::1754003592
+TileGrid.gd::GDScript::-1::1735856780::0::1::::TileGrid<>MeshGrid<>::
+::res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/::1754003592
+ShaderTextBox.gd::GDScript::-1::1735777348::0::1::::ShaderTextBox<>TextBox<>::
+TextBox.gd::GDScript::-1::1751631278::0::1::::TextBox<>TileGrid<>::
+TextColorTester.gd::GDScript::-1::1735777360::0::1::::TextColorTester<>ShaderTextBox<>::
+::res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/WordBox/::1754003592
+WordBox.gd::GDScript::-1::1735776972::0::1::::WordBox<>ShaderTextBox<>::
+::res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/WordBox/Bible/::1754003592
+BibleDisplay.gd::GDScript::-1::1712848266::0::1::::BibleDisplay<>BookDisplay<>::
+BibleReader.gd::GDScript::-1::1751632446::0::1::::BibleReader<>TypeBox<>::
+BookDisplay.gd::GDScript::-1::1734729694::0::1::::BookDisplay<>WordBox<>::
+::res://Scripts/Meshes/MeshGrid/TileGrid/TextBox/WordBox/TypeBox/::1754003592
+ChatBox.gd::GDScript::-1::1709767284::0::1::::ChatBox<>TypeBox<>::
+ConnectionBox.gd::GDScript::-1::1709767342::0::1::::ConnectionBox<>TypeBox<>::
+TypeBox.gd::GDScript::-1::1734765448::0::1::::TypeBox<>WordBox<>::
+::res://Scripts/Movement/::1754003593
+FreeFlyCamera.gd::GDScript::-1::1749862822::0::1::::<>Camera3D<>::
+Spectator.gd::GDScript::-1::1752147634::0::1::::<>Node3D<>::
+::res://Scripts/Physics/::1754003593
+PhysicsObject.gd::GDScript::-1::1748797260::0::1::::PhysicsObject<>CharacterBody3D<>::
+::res://Scripts/Toys/::1754003593
+BookParser.gd::GDScript::-1::1711761932::0::1::::<>Node<>::
+Drone.gd::GDScript::-1::1748799790::0::1::::<>Node<>::
+DroneController.gd::GDScript::-1::1708454568::0::1::::<>Node<>::
+Encoder.gd::GDScript::-1::1734729836::0::1::::<>Node<>::
+Hangar.gd::GDScript::-1::1706486182::0::1::::<>Node<>::
+MIDIGenerator.gd::GDScript::-1::1707005148::0::1::::<>Node<>::
+MusicPlayer.gd::GDScript::-1::1734740828::0::1::::<>Node<>::
+NLPAgent.gd::GDScript::-1::1735544774::0::1::::<>Node<>::
+UnitCard.gd::GDScript::-1::1707005340::0::1::::<>Node<>::
+::res://Scripts/Voxels/::1754003593
+Voxel.gd::GDScript::-1::1752167034::0::1::::Voxel<>RefCounted<>::
+VoxelEntity.gd::GDScript::-1::1699828472::0::1::::<>RefCounted<>::
+VoxelWorld.gd::GDScript::-1::1735005718::0::1::::VoxelWorld<>Node3D<>::
+::res://shaders/::1754003593
+basic_text_shader.gdshader::Shader::-1::1752194798::0::1::::<><>::
+dynamic_sky.gdshader::Shader::-1::1752194798::0::1::::<><>::
+lowpoly_background.gdshader::Shader::-1::1752194798::0::1::::<><>::
+pixelated_glass.gdshader::Shader::-1::1752194798::0::1::::<><>::
+pixel_display.gdshader::Shader::-1::1752194798::0::1::::<><>::
