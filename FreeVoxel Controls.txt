@@ -1,6 +1,6 @@
 WASD: move around
 Mouse: look around
-Space: jump
+Space/Left-Shift: fly up/down
 
 Use the connection box to type in a server ip to connect to. (To use it, click it when it's in the middle of the screen. Then type the desired ip, and hit Enter.) The default ip will connect you to the server I have running on an AWS instance. 
 
