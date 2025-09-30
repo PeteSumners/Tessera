@@ -5,11 +5,17 @@ var char_grid : Array = []  # 2D array of cells
 var cols : int
 var rows : int
 
+# Blend modes
+enum BlendMode {
+	ADDITIVE,
+	SUBTRACTIVE
+}
+
 func _init() -> void:
 	# Determine glyph size
 	var glyph_w = AtlasHelper.get_glyph_width()
 	var glyph_h = AtlasHelper.get_glyph_height()
-	# Desired terminal dimensions
+	# Default terminal dimensions
 	cols = 80
 	rows = 25
 	# Calculate pixel display size from desired rows/cols
@@ -19,7 +25,7 @@ func _init() -> void:
 	super(pixel_width, pixel_height)
 
 func _ready() -> void:
-	demo_rainbow_characters()
+	demo_russian_chars()
 
 func initialize_char_grid(cols: int, rows: int):
 	char_grid.resize(rows)
@@ -28,11 +34,28 @@ func initialize_char_grid(cols: int, rows: int):
 		for x in range(cols):
 			char_grid[y].append({
 				"char": 32,  # space
-				"fg": Color(1,1,1,1),  # white foreground
-				"bg": Color(0,0,0,1),  # black background
+				"fg": COLORS.WHITE,
+				"bg": COLORS.BLACK,
+				"blend_mode": BlendMode.ADDITIVE
 			})
 
-func set_char(x: int, y: int, char: String, fg: Color=Color(1,1,1,1), bg: Color=Color(0,0,0,1)):
+func resize_character_display(new_cols: int, new_rows: int):
+	"""Resize the character display to new dimensions"""
+	cols = new_cols
+	rows = new_rows
+	
+	var glyph_w = AtlasHelper.get_glyph_width()
+	var glyph_h = AtlasHelper.get_glyph_height()
+	var new_pixel_width = cols * glyph_w
+	var new_pixel_height = rows * glyph_h
+	
+	# Use the parent's resize method to update pixel dimensions
+	resize_pixel_display(new_pixel_width, new_pixel_height)
+	
+	# Reinitialize character grid
+	initialize_char_grid(cols, rows)
+
+func set_char(x: int, y: int, char: String, fg: Color=COLORS.WHITE, bg: Color=COLORS.BLACK, blend_mode: BlendMode = BlendMode.ADDITIVE):
 	if x < 0 or x >= cols or y < 0 or y >= rows:
 		return
 	
@@ -40,6 +63,7 @@ func set_char(x: int, y: int, char: String, fg: Color=Color(1,1,1,1), bg: Color=
 	char_grid[y][x]["char"] = cp
 	char_grid[y][x]["fg"] = fg
 	char_grid[y][x]["bg"] = bg
+	char_grid[y][x]["blend_mode"] = blend_mode
 	
 	draw_char(x, y)
 
@@ -53,20 +77,20 @@ func draw_char(x: int, y: int):
 	var dest_x = x * glyph_w
 	var dest_y = y * glyph_h
 	
-	# Draw background first
+	# Always overwrite the cell with the new background
 	draw_rect(dest_x, dest_y, glyph_w, glyph_h, [cell["bg"].r, cell["bg"].g, cell["bg"].b, cell["bg"].a])
-	
-	# Draw glyph with foreground color
+
+	# Draw glyph with specified blend mode
 	if AtlasHelper.metadata.has(str(cp)):
 		var glyph_img = AtlasHelper.get_glyph_image(char(cp))
 		if glyph_img != null:
-			# Apply foreground color to the glyph and blit
-			blit_colored_glyph(glyph_img, Vector2i(dest_x, dest_y), cell["fg"])
+			blit_glyph_with_mode(glyph_img, Vector2i(dest_x, dest_y), cell["fg"], cell["blend_mode"])
 
-func blit_colored_glyph(glyph_img: Image, dest_pos: Vector2i, fg_color: Color):
+func blit_glyph_with_mode(glyph_img: Image, dest_pos: Vector2i, fg_color: Color, blend_mode: BlendMode):
 	"""
-	Blits a glyph image to the display, applying the foreground color to non-transparent pixels.
-	Assumes the glyph has transparent background and white/grayscale foreground.
+	Blits a glyph image using the specified blend mode.
+	ADDITIVE: bg.rgb += fg.rgb * fg.a, bg.a += fg.a
+	SUBTRACTIVE: bg.rgb -= fg.rgb * fg.a, bg.a -= fg.a
 	"""
 	var glyph_w = glyph_img.get_width()
 	var glyph_h = glyph_img.get_height()
@@ -81,23 +105,30 @@ func blit_colored_glyph(glyph_img: Image, dest_pos: Vector2i, fg_color: Color):
 			if dest_x < 0 or dest_x >= pixel_width:
 				continue
 				
-			var pixel = glyph_img.get_pixel(x, y)
+			var glyph_pixel = glyph_img.get_pixel(x, y)
 			
-			# Skip transparent pixels (preserve background)
-			if pixel.a < 0.01:
+			# Skip completely transparent pixels
+			if glyph_pixel.a == 0:
 				continue
 			
-			# For non-transparent pixels, apply foreground color
-			# The original pixel's brightness determines the intensity
-			var brightness = (pixel.r + pixel.g + pixel.b) / 3.0
-			var colored_pixel = Color(
-				fg_color.r * brightness,
-				fg_color.g * brightness, 
-				fg_color.b * brightness,
-				pixel.a
-			)
+			var fg_alpha = fg_color.a * glyph_pixel.a
+			var current_color = Color(get_pixel(dest_x, dest_y)[0], get_pixel(dest_x, dest_y)[1], get_pixel(dest_x, dest_y)[2], get_pixel(dest_x, dest_y)[3])
+			var final_color = current_color
 			
-			set_pixel(dest_x, dest_y, [colored_pixel.r, colored_pixel.g, colored_pixel.b, colored_pixel.a])
+			match blend_mode:
+				BlendMode.ADDITIVE:
+					final_color.r += fg_color.r * fg_alpha
+					final_color.g += fg_color.g * fg_alpha
+					final_color.b += fg_color.b * fg_alpha
+					final_color.a += fg_alpha
+				BlendMode.SUBTRACTIVE:
+					final_color.r -= fg_color.r * fg_alpha
+					final_color.g -= fg_color.g * fg_alpha
+					final_color.b -= fg_color.b * fg_alpha
+					final_color.a -= fg_alpha
+			
+			final_color = final_color.clamp()
+			set_pixel(dest_x, dest_y, [final_color.r, final_color.g, final_color.b, final_color.a])
 
 func render_all():
 	clear_display()
@@ -107,14 +138,14 @@ func render_all():
 	needs_texture_update = true
 
 # Convenience methods for common terminal operations
-func set_text(x: int, y: int, text: String, fg: Color = Color(1,1,1,1), bg: Color = Color(0,0,0,1)):
+func set_text(x: int, y: int, text: String, fg: Color = COLORS.WHITE, bg: Color = COLORS.BLACK, blend_mode: BlendMode = BlendMode.ADDITIVE):
 	"""Set multiple characters in a row"""
 	for i in range(text.length()):
 		if x + i >= cols:
 			break
-		set_char(x + i, y, text[i], fg, bg)
+		set_char(x + i, y, text[i], fg, bg, blend_mode)
 
-func fill_rect_chars(x: int, y: int, width: int, height: int, char: String = " ", fg: Color = Color(1,1,1,1), bg: Color = Color(0,0,0,1)):
+func fill_rect_chars(x: int, y: int, width: int, height: int, char: String = " ", fg: Color = COLORS.WHITE, bg: Color = COLORS.BLACK, blend_mode: BlendMode = BlendMode.ADDITIVE):
 	"""Fill a rectangular area with a character and colors"""
 	for row in range(height):
 		if y + row >= rows:
@@ -122,106 +153,18 @@ func fill_rect_chars(x: int, y: int, width: int, height: int, char: String = " "
 		for col in range(width):
 			if x + col >= cols:
 				break
-			set_char(x + col, y + row, char, fg, bg)
+			set_char(x + col, y + row, char, fg, bg, blend_mode)
 
-func clear_screen(bg: Color = Color(0,0,0,1)):
+func clear_screen(bg: Color = COLORS.BLACK):
 	"""Clear the entire screen with a background color"""
-	fill_rect_chars(0, 0, cols, rows, " ", Color(1,1,1,1), bg)
+	fill_rect_chars(0, 0, cols, rows, " ", COLORS.WHITE, bg)
 
+# Helper function to create transparent versions of colors
+func make_transparent(color: Color, alpha: float) -> Color:
+	"""Create a transparent version of a color with specified alpha"""
+	return Color(color.r, color.g, color.b, alpha)
 
-# Add this method to your CharacterDisplay class for a rainbow demo!
-func demo_rainbow_characters():
-	"""Displays a colorful rainbow character demonstration"""
-	
-	# Clear screen with dark background
-	clear_screen(COLORS.BLACK)
-	
-	# Rainbow colors array
-	var rainbow_colors = [
-		Color(1.0, 0.0, 0.0, 1.0),  # Red
-		Color(1.0, 0.5, 0.0, 1.0),  # Orange
-		Color(1.0, 1.0, 0.0, 1.0),  # Yellow
-		Color(0.0, 1.0, 0.0, 1.0),  # Green
-		Color(0.0, 1.0, 1.0, 1.0),  # Cyan
-		Color(0.0, 0.0, 1.0, 1.0),  # Blue
-		Color(0.5, 0.0, 1.0, 1.0),  # Indigo
-		Color(1.0, 0.0, 1.0, 1.0)   # Violet
-	]
-	
-	# Title with cycling rainbow colors
-	var title = "RAINBOW CHARACTERS DEMO!"
-	var title_start_x = (cols - title.length()) / 2
-	for i in range(title.length()):
-		var color_index = i % rainbow_colors.size()
-		set_char(title_start_x + i, 2, title[i], rainbow_colors[color_index], COLORS.BLACK)
-	
-	# Animated rainbow waves
-	for row in range(5, 15):
-		for col in range(cols):
-			# Create wave pattern with different frequencies
-			var wave1 = sin((col * 0.2) + (row * 0.5)) * 0.5 + 0.5
-			var wave2 = cos((col * 0.15) + (row * 0.7)) * 0.5 + 0.5
-			
-			# Blend waves to create color
-			var hue = (wave1 + wave2 * 0.3) * 6.0  # 6.0 for full spectrum
-			var color = Color.from_hsv(fmod(hue, 1.0), 0.8, 0.9)
-			
-			# Use different characters for texture
-			var chars = "░▒▓█●◆▲►"
-			var char_index = int((wave1 + wave2) * chars.length()) % chars.length()
-			
-			set_char(col, row, chars[char_index], color, COLORS.BLACK)
-	
-	# Rainbow text examples
-	var examples = [
-		"Colorful ASCII Art!",
-		"Each character can have",
-		"its own foreground and",
-		"background colors!"
-	]
-	
-	for i in range(examples.size()):
-		var text = examples[i]
-		var y_pos = 17 + i
-		var text_start_x = (cols - text.length()) / 2
-		
-		for j in range(text.length()):
-			# Gradient from left to right
-			var progress = float(j) / float(text.length() - 1)
-			var hue = progress * 0.8  # Don't use full spectrum to avoid red-to-red
-			var fg_color = Color.from_hsv(hue, 0.7, 1.0)
-			var bg_color = Color.from_hsv(hue, 0.3, 0.2)  # Darker background
-			
-			set_char(text_start_x + j, y_pos, text[j], fg_color, bg_color)
-	
-	# Border with cycling colors
-	for i in range(cols):
-		var hue = float(i) / float(cols)
-		var border_color = Color.from_hsv(hue, 1.0, 0.8)
-		set_char(i, 0, "═", border_color, COLORS.BLACK)
-		set_char(i, rows - 1, "═", border_color, COLORS.BLACK)
-	
-	for i in range(rows):
-		var hue = float(i) / float(rows)
-		var border_color = Color.from_hsv(hue, 1.0, 0.8)
-		set_char(0, i, "║", border_color, COLORS.BLACK)
-		set_char(cols - 1, i, "║", border_color, COLORS.BLACK)
-	
-	# Corner pieces
-	set_char(0, 0, "╔", COLORS.WHITE, COLORS.BLACK)
-	set_char(cols - 1, 0, "╗", COLORS.WHITE, COLORS.BLACK)
-	set_char(0, rows - 1, "╚", COLORS.WHITE, COLORS.BLACK)
-	set_char(cols - 1, rows - 1, "╝", COLORS.WHITE, COLORS.BLACK)
-	
-	# Force render update
-	needs_texture_update = true
-
-# Call this method to show the rainbow demo:
-# var display = CharacterDisplay.new()
-# display.demo_rainbow_characters()
-
-
-# Color preset constants for convenience
+# Enhanced color preset constants with transparency helpers
 const COLORS = {
 	"BLACK": Color(0, 0, 0, 1),
 	"DARK_RED": Color(0.5, 0, 0, 1),
@@ -238,5 +181,84 @@ const COLORS = {
 	"BLUE": Color(0, 0, 1, 1),
 	"MAGENTA": Color(1, 0, 1, 1),
 	"CYAN": Color(0, 1, 1, 1),
-	"WHITE": Color(1, 1, 1, 1)
+	"ORANGE": Color(1, .5, 0, 1),
+	"WHITE": Color(1, 1, 1, 1),
+	"TRANSLUCENT_RED": Color(1, 0, 0, 0.5),
+	"TRANSLUCENT_GREEN": Color(0, 1, 0, 0.5),
+	"TRANSLUCENT_BLUE": Color(0, 0, 1, 0.5),
+	"TRANSLUCENT_YELLOW": Color(1, 1, 0, 0.5),
+	"TRANSLUCENT_CYAN": Color(0, 1, 1, 0.5),
+	"TRANSLUCENT_MAGENTA": Color(1, 0, 1, 0.5),
+	"TRANSLUCENT_ORANGE": Color(1, .5, 0, 1),
+	"TRANSLUCENT_WHITE": Color(1, 1, 1, 0.5),
+	"TRANSLUCENT_BLACK": Color(0, 0, 0, 0.5),
+	"TRANSPARENT": Color(0, 0, 0, 0),
 }
+
+func demo_blend_modes():
+	"""Simple demo: black background, white foreground, additive vs subtractive"""
+	clear_screen(COLORS.BLACK)
+
+	var text_add = "ADDITIVE"
+	var text_sub = "SUBTRACTIVE"
+
+	# Draw additive text in the top half
+	var fg = COLORS.WHITE
+	for i in range(text_add.length()):
+		set_char(2 + i, 2, text_add[i], fg, COLORS.BLACK, BlendMode.ADDITIVE)
+
+	# Draw subtractive text in the bottom half
+	for i in range(text_sub.length()):
+		set_char(2 + i, 5, text_sub[i], fg, COLORS.BLACK, BlendMode.SUBTRACTIVE)
+
+	render_all()
+
+func demo_rainbow():
+	clear_screen(COLORS.BLACK)
+	
+	var blend_modes = [BlendMode.ADDITIVE, BlendMode.SUBTRACTIVE]
+	
+	var x = 0
+	var y = 0
+	
+	for bg in COLORS.values():
+		for fg in COLORS.values():
+			for mode in blend_modes:
+				if x >= cols:
+					x = 0
+					y += 1
+				if y >= rows:
+					break
+				set_char(x, y, "A", fg, bg, mode)
+				x += 1
+	
+	render_all()
+
+func demo_russian_chars():
+	clear_screen(COLORS.BLACK)
+
+	# Basic Russian uppercase letters А to Я
+	var russian_chars = [
+		"А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й",
+		"К", "Л", "М", "Н", "О", "П", "Р", "С", "Т", "У", "Ф",
+		"Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"
+	]
+
+	var fg_colors = [
+		COLORS.RED, COLORS.GREEN, COLORS.BLUE, COLORS.YELLOW,
+		COLORS.CYAN, COLORS.MAGENTA, COLORS.WHITE
+	]
+
+	var x = 0
+	var y = 0
+	for char in russian_chars:
+		var fg = fg_colors[randi() % fg_colors.size()]
+		set_char(x, y, char, fg, COLORS.BLACK, BlendMode.ADDITIVE)
+		x += 1
+		if x >= cols:
+			x = 0
+			y += 1
+			if y >= rows:
+				break
+
+	render_all()

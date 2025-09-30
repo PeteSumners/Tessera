@@ -22,6 +22,7 @@ ThreadPool="*res://Scripts/ThreadPool.gd"
 MathHelper="*res://Scripts/MathHelper.gd"
 SurfaceToolManager="*res://Scripts/Meshes/SurfaceToolManager.gd"
 AtlasHelper="*res://Scripts/Meshes/MeshGrid/PixelDisplay/AtlasHelper.gd"
+BibleHelper="*res://Scripts/Bible/BibleHelper.gd"
 
 [global]
 

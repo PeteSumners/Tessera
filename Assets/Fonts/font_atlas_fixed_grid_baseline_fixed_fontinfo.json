@@ -6,6 +6,5 @@
   "font_size": 23,
   "target_glyph_size": 32,
   "scale_factor": 1.4545454545454546,
-  "threshold": 1,
-  "format": "RGBA_solid_white_no_antialiasing"
+  "format": "RGBA_white_with_antialiasing"
 }

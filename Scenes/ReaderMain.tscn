@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7mfblk078ptv"]
+
+[ext_resource type="Script" uid="uid://h2cya5no81pt" path="res://Scripts/ReaderMain.gd" id="1_vqqyp"]
+
+[node name="ReaderMain" type="Node3D"]
+script = ExtResource("1_vqqyp")

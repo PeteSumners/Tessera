@@ -15,8 +15,6 @@ var img := Image.new()
 var texture := ImageTexture.new()
 var raw_data := PackedByteArray()
 
-var pixel_update_batch: Array = []
-
 func _init(pix_width := 10, pix_height := 10, phys_scale := .01):
 	pixel_width = pix_width
 	pixel_height = pix_height
@@ -92,7 +90,7 @@ func setup_mesh_and_material():
 
 	setup_image_and_texture()
 
-func resize(w: int, h: int, phys_scale: float=physical_scale):
+func resize_pixel_display(w: int, h: int, phys_scale: float=physical_scale):
 	if w == pixel_width and h == pixel_height:
 		return
 	pixel_width = w
@@ -100,21 +98,10 @@ func resize(w: int, h: int, phys_scale: float=physical_scale):
 	setup_mesh_and_material() # physical resize
 
 func set_pixel(x: int, y: int, color: Array):
-	pixel_update_batch.append([x, y, color])
+	set_pixel_direct(x, y, Color(color[0], color[1], color[2], color[3]))
 	needs_texture_update = true
 
-func apply_pixel_batch():
-	if pixel_update_batch.size() == 0:
-		return
-
-	for update in pixel_update_batch:
-		var x = update[0]
-		var y = update[1]
-		var c = update[2]
-		set_pixel_direct(x, y, Color(c[0], c[1], c[2], c[3]))
-
-	pixel_update_batch.clear()
-	
+func apply_pixel_batch():	
 	# After setting pixels, update image and texture
 	img.set_data(pixel_width, pixel_height, false, Image.FORMAT_RGBA8, raw_data)
 	texture.set_image(img)
@@ -167,7 +154,8 @@ func get_center() -> Vector2:
 
 func _process(delta):
 	if needs_texture_update:
-		apply_pixel_batch()
+		img.set_data(pixel_width, pixel_height, false, Image.FORMAT_RGBA8, raw_data)
+		texture.set_image(img)
 		needs_texture_update = false
 
 func display_image(image: Image):
@@ -175,7 +163,7 @@ func display_image(image: Image):
 		push_error("Cannot display: Image is empty.")
 		return
 
-	resize(image.get_width(), image.get_height())
+	resize_pixel_display(image.get_width(), image.get_height())
 
 	if image.get_format() != Image.FORMAT_RGBA8:
 		image.convert(Image.FORMAT_RGBA8)

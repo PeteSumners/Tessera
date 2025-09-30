@@ -1,3 +1,14 @@
 res://default_env.tres
 res://Scenes/CameraTest.tscn
 res://shaders/pixelated_glass.gdshader
+res://shaders/scrollable_text.gdshader
+res://shaders/animated_scrolling_text.gdshader
+res://Scripts/Display3D/Display3D.gd
+res://Scripts/Display3D/BibleReader3D.gd
+res://Scripts/Display3D/DroneHUD3D.gd
+res://Scripts/Display3D/Terminal3D.gd
+res://Scenes/ReaderMain.tscn
+res://Scenes/ReaderMain.gd
+res://Scripts/ReaderMain.gd
+res://Scripts/Meshes/MeshGrid/MeshGrid.gd
+res://Scripts/Meshes/MeshGrid/CubeGrid/GrassyPlainsGrid.gd

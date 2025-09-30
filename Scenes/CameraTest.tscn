@@ -1,22 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://u8xuc6kvig54"]
 
 [ext_resource type="Script" uid="uid://b5a2t0rwj5sq5" path="res://Scripts/SkyboxMaker.gd" id="1_7ym54"]
-[ext_resource type="Script" uid="uid://rudjv8g2vwbb" path="res://Scripts/Meshes/MeshGrid/CubeGrid/PerlinTerrainGrid.gd" id="1_u78vl"]
+[ext_resource type="Script" uid="uid://dduvgmaxmvbw6" path="res://Scripts/Meshes/MeshGrid/CubeGrid/GrassyPlainsGrid.gd" id="1_xbxit"]
 [ext_resource type="PackedScene" uid="uid://wbl1ddys1gan" path="res://Scenes/Spectator.tscn" id="2_mgrmf"]
-[ext_resource type="Script" uid="uid://cpgdcm86tlg3t" path="res://Scripts/Meshes/MeshGrid/PixelDisplay/CharacterDisplay/CharacterDisplay.gd" id="4_xbxit"]
+[ext_resource type="Script" uid="uid://pdblfbocul5" path="res://Scripts/Display3D/BibleReader3D.gd" id="4_xbxit"]
 
 [node name="CameraTest" type="Node3D"]
 
 [node name="terrain" type="CharacterBody3D" parent="."]
-script = ExtResource("1_u78vl")
+script = ExtResource("1_xbxit")
 
 [node name="Spectator" parent="." instance=ExtResource("2_mgrmf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, 16, 29)
 
 [node name="SkyboxMaker" type="Node3D" parent="."]
 script = ExtResource("1_7ym54")
 
-[node name="CharacterDisplay" type="CharacterBody3D" parent="."]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+[node name="BibleReader3D" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 32, 16, 35)
 script = ExtResource("4_xbxit")
-metadata/_custom_type_script = "uid://cpgdcm86tlg3t"
